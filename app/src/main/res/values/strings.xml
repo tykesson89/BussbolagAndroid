@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">BussbolagAndroid</string>
+    <string name="ResaFrån">Resa från:</string>
+    <string name="ResaTill">Resa till:</string>
+    <string name="vecka">Vecka:</string>
+    <string name="Veckodag">Veckodag:</string>
+    <string name="Antalbiljetter">Antal Biljetter</string>
+    <string name="SökResa">Sök Resa</string>
+</resources>
