@@ -7,6 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:layout_margin="10dp"
     android:orientation="vertical"
     tools:context="com.example.henrik.bussbolagandroid.MainActivity"
     android:gravity="center">
@@ -18,15 +19,18 @@
         android:text="@string/ResaFrån"
         android:id="@+id/textView"
         android:gravity="center"
+        android:layout_marginBottom="10dp"
         android:layout_gravity="center_horizontal" />
 
     <Spinner
+        android:layout_marginBottom="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/spinnerTravelFrom"
         android:spinnerMode="dropdown" />
 
     <TextView
+        android:layout_marginBottom="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -34,12 +38,14 @@
         android:id="@+id/textView2" />
 
     <Spinner
+        android:layout_marginBottom="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/spinnerTravelTo"
         android:spinnerMode="dropdown" />
 
     <TextView
+        android:layout_marginBottom="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -47,6 +53,7 @@
         android:id="@+id/textView4" />
 
     <EditText
+        android:layout_marginBottom="10dp"
         android:layout_width="381dp"
         android:layout_height="wrap_content"
         android:inputType="number"
@@ -55,6 +62,7 @@
         android:gravity="center_horizontal" />
 
     <TextView
+        android:layout_marginBottom="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -62,12 +70,14 @@
         android:id="@+id/textView3" />
 
     <Spinner
+        android:layout_marginBottom="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/spinnerDayofWeek"
         android:spinnerMode="dropdown" />
 
     <TextView
+        android:layout_marginBottom="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -77,14 +87,16 @@
         android:layout_gravity="center_horizontal" />
 
     <EditText
-        android:layout_width="match_parent"
+        android:layout_marginBottom="10dp"
+        android:layout_width="381dp"
         android:layout_height="wrap_content"
         android:inputType="number"
+        android:ems="10"
         android:id="@+id/etTickets"
-        android:focusableInTouchMode="false"
-        android:gravity="center|start" />
+        android:gravity="center_horizontal" />
 
     <Button
+        android:layout_marginBottom="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/SökResa"
