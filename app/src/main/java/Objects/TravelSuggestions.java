@@ -16,6 +16,44 @@ public class TravelSuggestions implements Serializable {
     private int price;
     private Time departure;
     private Time Arrival;
+    private int travelid;
+
+    public TravelSuggestions(int travelid, int week, int seats, int price, String dayOfWeek, String departure, String arraival, String from, String to) {
+        this.from = from;
+        this.to = to;
+        this.dayOfWeek = dayOfWeek;
+        this.week = week;
+        this.seats = seats;
+        this.price = price;
+        this.travelid = travelid;
+        this.departure = Time.valueOf(departure);
+        this.Arrival = Time.valueOf(arraival);
+
+
+    }
+
+    public int getTravelid() {
+        return travelid;
+    }
+
+    @Override
+    public String toString() {
+        return "TravelSuggestions{" +
+                "from='" + from + '\'' +
+                ", to='" + to + '\'' +
+                ", dayOfWeek='" + dayOfWeek + '\'' +
+                ", week=" + week +
+                ", seats=" + seats +
+                ", price=" + price +
+                ", departure=" + departure +
+                ", Arrival=" + Arrival +
+                ", travelid=" + travelid +
+                '}';
+    }
+
+    public void setTravelid(int travelid) {
+        this.travelid = travelid;
+    }
 
     public TravelSuggestions(){
 

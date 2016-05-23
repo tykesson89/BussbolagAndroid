@@ -49,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
         initDayOfWeek();
         initSpinnerDayOfWeek();
         initListeners();
+        SqLiteDB sqLiteDB = new SqLiteDB(this);
+        sqLiteDB.getWritableDatabase();
     }
     public void initListeners(){
         buttonSearchTravel.setOnClickListener(new View.OnClickListener() {
@@ -165,14 +167,14 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-    class SendSearch extends AsyncTask<Travel, Void, List<TravelSuggestions>>{
+    class SendSearch extends AsyncTask<Travel, Void, Void>{
         private static final String ip = "192.168.56.1";
         private static final int port = 40001;
         private ObjectOutputStream objectOut;
         private ObjectInputStream objectIn;
         private List<TravelSuggestions> list;
         @Override
-        protected List<TravelSuggestions> doInBackground(Travel... params) {
+        protected Void doInBackground(Travel... params) {
 
             try {
                 Socket socket = new Socket(ip, port);
@@ -182,6 +184,8 @@ public class MainActivity extends AppCompatActivity {
                 objectOut.writeObject("Search");
                 objectOut.writeObject(params[0]);
                 list = (List<TravelSuggestions>)objectIn.readObject();
+
+                Log.d("resa:", list.get(0).toString());
 
             }catch (Exception e){
                 e.printStackTrace();
@@ -193,17 +197,22 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-            return list;
+            return null;
         }
 
         @Override
-        protected void onPostExecute(List<TravelSuggestions> travelSuggestionses) {
-            Object obj = travelSuggestionses;
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            SqLiteDB sqLiteDB = new SqLiteDB(getApplicationContext());
+            sqLiteDB.deleteAll();
+
+            sqLiteDB.addTravel(list.get(0));
+
+
             Intent intent = new Intent(getApplicationContext(),
                     Main2Activity.class);
-
-
-            intent.putExtra("List", (Serializable) obj);
+            startActivity(intent);
         }
     }
 }
