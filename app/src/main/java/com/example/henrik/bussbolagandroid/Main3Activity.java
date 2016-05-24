@@ -1,9 +1,12 @@
 package com.example.henrik.bussbolagandroid;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -23,6 +26,7 @@ public class Main3Activity extends AppCompatActivity {
     private TextView textViewTotalPrice;
     private Button buttonBokaResa;
     private int travelId;
+    private int totalPrice;
     private TravelSuggestions travelSuggestions;
 
     @Override
@@ -30,7 +34,7 @@ public class Main3Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main3);
         initComponentes();
-
+        buttonListener();
         SqLiteDB sqLiteDB = new SqLiteDB(this);
         String id = getIntent().getStringExtra("H");
         travelId = Integer.parseInt(id);
@@ -68,7 +72,7 @@ public class Main3Activity extends AppCompatActivity {
         textViewArraival.setText(arraival.toString());
         textViewWeek.setText(Integer.toString(week));
         textViewPrice.setText(Integer.toString(price));
-        int totalPrice = tickets * price;
+        totalPrice = tickets * price;
         textViewTotalPrice.setText(Integer.toString(totalPrice));
 
     }
@@ -85,5 +89,49 @@ public class Main3Activity extends AppCompatActivity {
         textViewTo = (TextView)findViewById(R.id.textViewTo);
         textViewWeek = (TextView)findViewById(R.id.textViewWeek);
         buttonBokaResa = (Button)findViewById(R.id.buttonBokaResa);
+    }
+
+    public void buttonListener(){
+        buttonBokaResa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createOptionsDialog();
+            }
+        });
+    }
+
+
+    public void createOptionsDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setTitle("Edit");
+
+        builder.setItems(new String[]{"Redan kund?", "Ny kund?", "Cancel"}, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int position) {
+                if (position == 0) {
+                    Intent intent = new Intent(getApplicationContext(), Main4Activity.class);
+                    intent.putExtra("H", String.valueOf(totalPrice));
+                    intent.putExtra("T",String.valueOf(travelSuggestions.getTravelid()));
+                    intent.putExtra("M",String.valueOf(travelSuggestions.getSeats()));
+                    startActivity(intent);
+
+
+                } else if (position == 1) {
+                    Intent intent = new Intent(getApplicationContext(), Main5Activity.class);
+                    intent.putExtra("H", String.valueOf(totalPrice));
+                    intent.putExtra("T",String.valueOf(travelSuggestions.getTravelid()));
+                    intent.putExtra("M",String.valueOf(travelSuggestions.getSeats()));
+                    startActivity(intent);
+
+
+                } else {
+                    //gör ingenting
+                }
+            }
+        });
+
+        builder.show();
+
     }
 }
