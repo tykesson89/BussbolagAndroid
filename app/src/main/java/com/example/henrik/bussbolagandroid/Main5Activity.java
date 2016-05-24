@@ -1,11 +1,21 @@
 package com.example.henrik.bussbolagandroid;
 
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
+import java.util.List;
+
+import Objects.Customer;
 
 public class Main5Activity extends AppCompatActivity {
     private EditText editTextNumber;
@@ -28,6 +38,7 @@ public class Main5Activity extends AppCompatActivity {
         travelId = Integer.parseInt(id);
         initComponents();
         textViewprice.setText(fullPrice);
+        initListeners();
     }
 
 
@@ -49,8 +60,59 @@ public class Main5Activity extends AppCompatActivity {
         buttonCompleteBooking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Customer customer = new Customer(Long.parseLong(editTextPersonnummer.getText().toString()),
+                        editTextEmail.getText().toString(),
+                        editTextNumber.getText().toString(),
+                        editTextAdress.getText().toString(),
+                        editTextName.getText().toString(),
+                        travelId,
+                        Integer.parseInt(tickets));
+
+                new SendNewCustomer().execute(customer);
+
 
             }
         });
+    }
+
+
+    public class SendNewCustomer extends AsyncTask<Customer, Void, String>{
+        private static final String ip = "192.168.56.1";
+        private static final int port = 40001;
+        private ObjectOutputStream objectOut;
+        private ObjectInputStream objectIn;
+        private String response = "Something Went Wrong";
+
+        @Override
+        protected String doInBackground(Customer... params) {
+
+            try {
+                Socket socket = new Socket(ip, port);
+
+                objectOut = new ObjectOutputStream(socket.getOutputStream());
+                objectIn = new ObjectInputStream(socket.getInputStream());
+                objectOut.writeObject("New Customer");
+                objectOut.writeObject(params[0]);
+                response = (String)objectIn.readObject();
+
+
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
+
+            return response;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            if(s.equals("Success")){
+                Intent intent = new Intent(getApplicationContext(),
+                        Main6Activity.class);
+                startActivity(intent);
+            }
+
+        }
     }
 }
