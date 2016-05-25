@@ -50,7 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Avgångstid"
+            android:text="Avgångstid:"
             android:id="@+id/textView1" />
 
         <TextView
@@ -95,7 +95,22 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Text"
-            android:id="@+id/price" />
+            android:id="@+id/price"
+            android:layout_marginRight="40dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Platser kvar:"
+            android:id="@+id/textView33" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Text"
+            android:id="@+id/seatsLeft" />
 
     </LinearLayout>
 

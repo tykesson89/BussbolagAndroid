@@ -10,7 +10,46 @@
     android:layout_margin="10dp"
     android:orientation="vertical"
     tools:context="com.example.henrik.bussbolagandroid.MainActivity"
-    android:gravity="center">
+    android:gravity="center"
+    style="@style/AppTheme"
+    android:showDividers="middle|end"
+    android:dividerPadding="@dimen/activity_horizontal_margin">
+
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="169dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_gravity="center_horizontal">
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tur"
+            android:id="@+id/radioButtonTur"
+            android:layout_gravity="center"
+            android:checked="false"
+            android:layout_marginLeft="10dp"/>
+
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tur &amp; Retur"
+                android:id="@+id/radioButtonRetur"
+                android:checked="false" />
+
+
+        </RadioGroup>
+
+    </LinearLayout>
 
     <TextView
         android:layout_width="wrap_content"

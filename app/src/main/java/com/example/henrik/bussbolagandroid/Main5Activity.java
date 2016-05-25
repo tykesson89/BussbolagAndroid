@@ -60,17 +60,29 @@ public class Main5Activity extends AppCompatActivity {
         buttonCompleteBooking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Customer customer = new Customer(Long.parseLong(editTextPersonnummer.getText().toString()),
-                        editTextEmail.getText().toString(),
-                        editTextNumber.getText().toString(),
-                        editTextAdress.getText().toString(),
-                        editTextName.getText().toString(),
-                        travelId,
-                        Integer.parseInt(tickets));
+                if(editTextPersonnummer.getText().length() != 9){
+                    editTextPersonnummer.setError("Personnummer måste innehålla 10 tecken");
+                }
+                if(editTextEmail.getText().length() == 0){
+                    editTextEmail.setError("Du måste ange en Email");
+                }if(editTextNumber.getText().length() == 0){
+                    editTextNumber.setError("Du måste ange ett nummer");
+                }if(editTextAdress.getText().length() == 0){
+                    editTextAdress.setError("Du måste ange en adress");
+                }if(editTextName.getText().length() == 0){
+                    editTextName.setError("Du måste ange ett namn");
+                }else {
+                    Customer customer = new Customer(Long.parseLong(editTextPersonnummer.getText().toString()),
+                            editTextEmail.getText().toString(),
+                            editTextNumber.getText().toString(),
+                            editTextAdress.getText().toString(),
+                            editTextName.getText().toString(),
+                            travelId,
+                            Integer.parseInt(tickets));
 
-                new SendNewCustomer().execute(customer);
+                    new SendNewCustomer().execute(customer);
 
-
+                }
             }
         });
     }

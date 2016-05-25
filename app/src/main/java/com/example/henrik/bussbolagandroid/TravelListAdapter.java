@@ -38,6 +38,7 @@ public class TravelListAdapter extends ArrayAdapter<TravelSuggestions> {
             TextView price = (TextView)rowView.findViewById(R.id.price);
             TextView departureTime = (TextView)rowView.findViewById(R.id.departureTime);
             TextView arraivalTime = (TextView)rowView.findViewById(R.id.arraivalTime);
+            TextView seatsLeft = (TextView)rowView.findViewById(R.id.seatsLeft);
 
 
             fromCity.setText(" " + travelSuggestionsList.get(position).getFrom()+" ");
@@ -45,7 +46,7 @@ public class TravelListAdapter extends ArrayAdapter<TravelSuggestions> {
             price.setText(" " + travelSuggestionsList.get(position).getPrice()+" kr");
             departureTime.setText(" " + travelSuggestionsList.get(position).getDeparture().toString() + " ");
             arraivalTime.setText(" " + travelSuggestionsList.get(position).getArrival().toString() +" ");
-
+            seatsLeft.setText(" " + travelSuggestionsList.get(position).getSeatsLeft());
 
 
 

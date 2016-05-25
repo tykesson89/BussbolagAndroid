@@ -10,7 +10,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -34,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
     private String from;
     private String to;
     private String dayOfWeekString;
+    private RadioButton radioButtonTur;
+    private RadioButton radioButtonRetur;
 
 
     @Override
@@ -56,10 +60,17 @@ public class MainActivity extends AppCompatActivity {
         buttonSearchTravel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int seats = Integer.parseInt(etTickets.getText().toString());
-                int week = Integer.parseInt(etWeek.getText().toString());
-                Travel travel = new Travel(from, to, dayOfWeekString, week, seats);
-                new SendSearch().execute(travel);
+                if(etTickets.getText().length() == 0){
+                    etTickets.setError("Du måste ange antal biljetter");
+                }
+                if(etWeek.getText().length() == 0){
+                    etWeek.setError("Du måste ange en vecka");
+                }else {
+                    int seats = Integer.parseInt(etTickets.getText().toString());
+                    int week = Integer.parseInt(etWeek.getText().toString());
+                    Travel travel = new Travel(from, to, dayOfWeekString, week, seats);
+                    new SendSearch().execute(travel);
+                }
             }
         });
 
@@ -76,6 +87,8 @@ public class MainActivity extends AppCompatActivity {
         etWeek = (EditText)findViewById(R.id.etWeek);
         etTickets = (EditText)findViewById(R.id.etTickets);
         buttonSearchTravel = (Button)findViewById(R.id.buttonSearchTravel);
+        radioButtonRetur = (RadioButton)findViewById(R.id.radioButtonRetur);
+        radioButtonTur = (RadioButton)findViewById(R.id.radioButtonTur);
 
     }
     public void initSpinnerTravelFrom(){
@@ -167,14 +180,14 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-    class SendSearch extends AsyncTask<Travel, Void, Void>{
+    class SendSearch extends AsyncTask<Travel, Void, String>{
         private static final String ip = "192.168.56.1";
         private static final int port = 40001;
         private ObjectOutputStream objectOut;
         private ObjectInputStream objectIn;
         private List<TravelSuggestions> list;
         @Override
-        protected Void doInBackground(Travel... params) {
+        protected String doInBackground(Travel... params) {
 
             try {
                 Socket socket = new Socket(ip, port);
@@ -183,9 +196,15 @@ public class MainActivity extends AppCompatActivity {
                 objectIn = new ObjectInputStream(socket.getInputStream());
                 objectOut.writeObject("Search");
                 objectOut.writeObject(params[0]);
-                list = (List<TravelSuggestions>)objectIn.readObject();
+                Object obj = objectIn.readObject();
+                if(obj instanceof List){
+                    list = (List<TravelSuggestions>)obj;
+                    return "Success";
+                }else {
+                    return "No Travels";
 
-                Log.d("resa:", list.get(0).toString());
+                }
+
 
             }catch (Exception e){
                 e.printStackTrace();
@@ -201,18 +220,26 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
+        protected void onPostExecute(String params) {
+            super.onPostExecute(params);
+            if(params.equals("No Travels")){
+                buttonSearchTravel.setError("Inga resor hittades");
 
-            SqLiteDB sqLiteDB = new SqLiteDB(getApplicationContext());
-            sqLiteDB.deleteAll();
+                Toast.makeText(getApplicationContext(), "Inga resor hittades", Toast.LENGTH_LONG).show();
 
-            sqLiteDB.addTravel(list.get(0));
+            }else {
 
+                if(radioButtonTur.isChecked()) {
+                    SqLiteDB sqLiteDB = new SqLiteDB(getApplicationContext());
+                    sqLiteDB.deleteAll();
+                    sqLiteDB.addTravel(list.get(0));
+                    Intent intent = new Intent(getApplicationContext(),
+                            Main2Activity.class);
+                    startActivity(intent);
+                }else if(radioButtonRetur.isChecked()){
 
-            Intent intent = new Intent(getApplicationContext(),
-                    Main2Activity.class);
-            startActivity(intent);
+                }
+            }
         }
     }
 }

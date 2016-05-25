@@ -34,7 +34,8 @@ public class SqLiteDB extends SQLiteOpenHelper {
                 "departure TEXT, " +
                 "arraival TEXT, " +
                 "fromcity TEXT, " +
-                "tocity TEXT );");
+                "tocity TEXT, " +
+                "seatsleft INTEGER);");
     }
 
     @Override
@@ -49,7 +50,7 @@ public class SqLiteDB extends SQLiteOpenHelper {
 
             SQLiteDatabase db = this.getWritableDatabase();
             ContentValues content = new ContentValues();
-
+            content.put("seatsleft", travelSuggestions.getSeatsLeft());
             content.put("resid", travelSuggestions.getTravelid());
             content.put("week", travelSuggestions.getWeek());
             content.put("seats", travelSuggestions.getSeats());
@@ -86,7 +87,8 @@ public class SqLiteDB extends SQLiteOpenHelper {
                    cursor.getString(cursor.getColumnIndex("departure")),
                    cursor.getString(cursor.getColumnIndex("arraival")),
                    cursor.getString(cursor.getColumnIndex("fromcity")),
-                   cursor.getString(cursor.getColumnIndex("tocity"))
+                   cursor.getString(cursor.getColumnIndex("tocity")),
+                   cursor.getInt(cursor.getColumnIndex("seatsleft"))
            );
 
            list.add(travelSuggestions);
@@ -112,7 +114,8 @@ public class SqLiteDB extends SQLiteOpenHelper {
                     cursor.getString(cursor.getColumnIndex("departure")),
                     cursor.getString(cursor.getColumnIndex("arraival")),
                     cursor.getString(cursor.getColumnIndex("fromcity")),
-                    cursor.getString(cursor.getColumnIndex("tocity"))
+                    cursor.getString(cursor.getColumnIndex("tocity")),
+                    cursor.getInt(cursor.getColumnIndex("seatsleft"))
             );
 
 

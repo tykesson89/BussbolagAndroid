@@ -17,8 +17,9 @@ public class TravelSuggestions implements Serializable {
     private Time departure;
     private Time Arrival;
     private int travelid;
+    private int seatsLeft;
 
-    public TravelSuggestions(int travelid, int week, int seats, int price, String dayOfWeek, String departure, String arraival, String from, String to) {
+    public TravelSuggestions(int travelid, int week, int seats, int price, String dayOfWeek, String departure, String arraival, String from, String to, int seatsLeft) {
         this.from = from;
         this.to = to;
         this.dayOfWeek = dayOfWeek;
@@ -28,6 +29,7 @@ public class TravelSuggestions implements Serializable {
         this.travelid = travelid;
         this.departure = Time.valueOf(departure);
         this.Arrival = Time.valueOf(arraival);
+        this.seatsLeft = seatsLeft;
 
 
     }
@@ -55,18 +57,14 @@ public class TravelSuggestions implements Serializable {
         this.travelid = travelid;
     }
 
-    public TravelSuggestions(){
 
+    public void setSeatsLeft(int seatsLeft) {
+        this.seatsLeft = seatsLeft;
     }
 
+    public int getSeatsLeft() {
 
-    public TravelSuggestions(String from, String to, String dayOfWeek, int week, int seats, int price, Time departure, Time arrival) {
-        this.from = from;
-        this.to = to;
-        this.dayOfWeek = dayOfWeek;
-        this.week = week;
-        this.seats = seats;
-        this.price = price;
+        return seatsLeft;
     }
 
     public String getFrom() {

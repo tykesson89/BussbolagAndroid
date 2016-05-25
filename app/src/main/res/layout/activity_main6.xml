@@ -31,7 +31,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Tillbaka till start"
-        android:id="@+id/button2"
+        android:id="@+id/buttonbackToStart"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="168dp" />
