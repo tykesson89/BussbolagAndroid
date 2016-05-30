@@ -29,23 +29,6 @@
             android:gravity="center"
             android:layout_gravity="center_horizontal">
 
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Tur"
-            android:id="@+id/radioButtonTur"
-            android:layout_gravity="center"
-            android:checked="false"
-            android:layout_marginLeft="10dp"/>
-
-
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Tur &amp; Retur"
-                android:id="@+id/radioButtonRetur"
-                android:checked="false" />
-
 
         </RadioGroup>
 

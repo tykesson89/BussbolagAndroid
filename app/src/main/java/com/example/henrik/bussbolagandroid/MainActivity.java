@@ -229,16 +229,14 @@ public class MainActivity extends AppCompatActivity {
 
             }else {
 
-                if(radioButtonTur.isChecked()) {
+
                     SqLiteDB sqLiteDB = new SqLiteDB(getApplicationContext());
                     sqLiteDB.deleteAll();
                     sqLiteDB.addTravel(list.get(0));
                     Intent intent = new Intent(getApplicationContext(),
                             Main2Activity.class);
                     startActivity(intent);
-                }else if(radioButtonRetur.isChecked()){
 
-                }
             }
         }
     }
