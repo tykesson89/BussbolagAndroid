@@ -87,8 +87,7 @@ public class MainActivity extends AppCompatActivity {
         etWeek = (EditText)findViewById(R.id.etWeek);
         etTickets = (EditText)findViewById(R.id.etTickets);
         buttonSearchTravel = (Button)findViewById(R.id.buttonSearchTravel);
-        radioButtonRetur = (RadioButton)findViewById(R.id.radioButtonRetur);
-        radioButtonTur = (RadioButton)findViewById(R.id.radioButtonTur);
+
 
     }
     public void initSpinnerTravelFrom(){
